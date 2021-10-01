@@ -1,10 +1,13 @@
 // index.js
 // This code emits to the server the new username. Emit allows for registering custom events.
+
 $(document).ready(()=>{
     const socket = io.connect();
   
     //Keep track of the current user
     let currentUser;
+    // Get the online users from the server
+    socket.emit('get online users');
   
     $('#create-user-btn').click((e)=>{
       e.preventDefault();
@@ -46,6 +49,14 @@ $(document).ready(()=>{
             <p class="message-text">${data.message}</p>
         </div>
         `);
-  })
+    })
 
-  })
+    //Refresh the online user list
+    socket.on('user has left', (onlineUsers) => {
+        $('.users-online').empty();
+        for(username in onlineUsers){
+        $('.users-online').append(`<p>${username}</p>`);
+    }
+  });
+
+})
