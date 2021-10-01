@@ -1,7 +1,6 @@
 // index.js
 // This code emits to the server the new username. Emit allows for registering custom events.
 $(document).ready(() => {
-
     const socket = io.connect();
   
     $('#create-user-btn').click((e) => {
